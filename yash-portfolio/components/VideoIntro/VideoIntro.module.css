@@ -1,0 +1,308 @@
+.hero {
+  position: relative;
+  height: 100svh;
+  min-height: 640px;
+  width: 100%;
+  overflow: hidden;
+  background: #060403;
+  isolation: isolate;
+}
+
+/* ---------- Ambient blurred background layer ---------- */
+.bgVideoWrap {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.bgVideo {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 130%;
+  height: 130%;
+  object-fit: cover;
+  transform: translate(-50%, -50%);
+  filter: blur(48px) saturate(130%) brightness(0.55);
+  transform-origin: center;
+}
+
+.bgTint {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(60% 55% at 22% 30%, rgba(255, 138, 61, 0.28), transparent 65%),
+    radial-gradient(50% 50% at 82% 70%, rgba(79, 168, 255, 0.22), transparent 65%);
+  mix-blend-mode: screen;
+}
+
+/* ---------- Foreground talking-head video ---------- */
+.fgStage {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: clamp(0px, 6vw, 120px);
+}
+
+.fgVideoFrame {
+  position: relative;
+  height: min(78svh, 720px);
+  aspect-ratio: 9 / 12;
+  border-radius: 28px;
+  overflow: hidden;
+  box-shadow:
+    0 40px 100px -30px rgba(0, 0, 0, 0.85),
+    0 0 0 1px rgba(255, 218, 185, 0.12),
+    0 0 120px -20px rgba(255, 122, 51, 0.35);
+  opacity: 0;
+}
+
+.fgVideo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.fgGradient {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(10, 8, 6, 0) 45%,
+    rgba(10, 8, 6, 0.55) 82%,
+    rgba(10, 8, 6, 0.85) 100%
+  );
+  pointer-events: none;
+}
+
+.fgEdgeGlow {
+  position: absolute;
+  inset: -1px;
+  border-radius: 28px;
+  box-shadow: inset 0 0 60px 6px rgba(255, 154, 77, 0.12);
+  pointer-events: none;
+}
+
+@media (max-width: 900px) {
+  .fgStage {
+    justify-content: center;
+    padding-right: 0;
+    align-items: flex-end;
+    padding-bottom: 8px;
+  }
+  .fgVideoFrame {
+    height: 52svh;
+    aspect-ratio: 3 / 4;
+  }
+}
+
+/* ---------- Dark cinematic overlay gradients ---------- */
+.overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background:
+    linear-gradient(180deg, rgba(6, 4, 3, 0.55) 0%, rgba(6, 4, 3, 0.15) 30%, rgba(6, 4, 3, 0.35) 68%, rgba(6, 4, 3, 0.92) 100%),
+    linear-gradient(90deg, rgba(6, 4, 3, 0.85) 0%, rgba(6, 4, 3, 0.15) 42%, rgba(6, 4, 3, 0) 60%);
+}
+
+.vignette {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  box-shadow: inset 0 0 220px 60px rgba(0, 0, 0, 0.65);
+}
+
+.grain {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  opacity: 0.05;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  mix-blend-mode: overlay;
+}
+
+/* ---------- Text content ---------- */
+.content {
+  position: relative;
+  z-index: 4;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 clamp(20px, 6vw, 96px);
+  max-width: 900px;
+}
+
+.tagline {
+  opacity: 0;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: var(--color-ember-soft);
+  margin-bottom: 20px;
+}
+
+.nameStack {
+  display: flex;
+  flex-direction: column;
+  line-height: 0.86;
+  margin-bottom: 22px;
+}
+
+.nameLine {
+  opacity: 0;
+  font-family: var(--font-display);
+  font-size: clamp(3.6rem, 13vw, 9.5rem);
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+  background: linear-gradient(180deg, #fff9f2 0%, #f6ead9 45%, #c99a72 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow: 0 30px 60px rgba(255, 122, 51, 0.15);
+}
+
+.subtitle {
+  opacity: 0;
+  font-size: clamp(0.95rem, 1.6vw, 1.15rem);
+  color: var(--color-text);
+  max-width: 620px;
+  margin-bottom: 14px;
+  font-weight: 500;
+}
+
+.description {
+  opacity: 0;
+  font-size: clamp(0.88rem, 1.2vw, 1rem);
+  color: var(--color-text-dim);
+  max-width: 540px;
+  line-height: 1.65;
+}
+
+/* ---------- Glassmorphism controls ---------- */
+.controls {
+  position: absolute;
+  z-index: 5;
+  right: clamp(16px, 4vw, 48px);
+  bottom: clamp(96px, 12vh, 140px);
+  display: flex;
+  gap: 10px;
+  opacity: 0;
+}
+
+.controlBtn {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  color: var(--color-text);
+  transition: background 0.3s var(--ease-cinema), transform 0.3s var(--ease-cinema), border-color 0.3s;
+}
+
+.controlBtn:hover {
+  background: rgba(255, 138, 61, 0.22);
+  border-color: rgba(255, 154, 77, 0.5);
+  transform: translateY(-2px);
+}
+
+.tapBadge {
+  position: absolute;
+  z-index: 5;
+  right: clamp(16px, 4vw, 48px);
+  bottom: calc(clamp(96px, 12vh, 140px) + 56px);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  color: var(--color-text-dim);
+  transition: opacity 0.6s var(--ease-cinema);
+}
+
+.tapBadge.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.tapDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-ember);
+  box-shadow: 0 0 10px 2px var(--color-ember-dim);
+  animation: pulseDot 1.6s ease-in-out infinite;
+}
+
+@keyframes pulseDot {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.6); opacity: 0.5; }
+}
+
+/* ---------- Scroll indicator ---------- */
+.scrollIndicator {
+  position: absolute;
+  z-index: 5;
+  bottom: 34px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  opacity: 0;
+}
+
+.scrollLine {
+  width: 1px;
+  height: 46px;
+  background: linear-gradient(180deg, var(--color-ember-soft), transparent);
+  position: relative;
+  overflow: hidden;
+}
+
+.scrollLine::after {
+  content: "";
+  position: absolute;
+  top: -20px;
+  left: 0;
+  width: 100%;
+  height: 20px;
+  background: linear-gradient(180deg, transparent, #fff);
+  animation: scrollPulse 2.2s ease-in-out infinite;
+}
+
+@keyframes scrollPulse {
+  0% { top: -20px; }
+  100% { top: 46px; }
+}
+
+.scrollLabel {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--color-text-faint);
+  writing-mode: vertical-rl;
+}

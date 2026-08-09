@@ -1,0 +1,152 @@
+:root {
+  /* --- Cinematic palette --- */
+  --color-bg: #0a0806;
+  --color-bg-alt: #120d0a;
+  --color-panel: rgba(22, 17, 14, 0.55);
+  --color-panel-border: rgba(255, 218, 185, 0.12);
+  --color-ember: #ff7a33;
+  --color-ember-soft: #ff9a4d;
+  --color-ember-dim: rgba(255, 122, 51, 0.35);
+  --color-blue-glow: #4fa8ff;
+  --color-blue-dim: rgba(79, 168, 255, 0.25);
+  --color-text: #f6f0e8;
+  --color-text-dim: #ab9d90;
+  --color-text-faint: #736459;
+
+  /* --- Type --- */
+  --font-display: "Bebas Neue", "Oswald", sans-serif;
+  --font-body: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+
+  /* --- Layout --- */
+  --nav-height: 84px;
+  --section-pad-y: clamp(72px, 12vw, 160px);
+  --edge: clamp(20px, 6vw, 96px);
+  --radius-lg: 24px;
+  --radius-md: 16px;
+  --radius-sm: 10px;
+
+  /* --- Motion --- */
+  --ease-cinema: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  background: var(--color-bg);
+}
+
+body {
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+
+::selection {
+  background: var(--color-ember);
+  color: #140b06;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+  color: inherit;
+}
+
+img,
+video {
+  display: block;
+  max-width: 100%;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-bg);
+}
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(var(--color-ember-dim), var(--color-blue-dim));
+  border-radius: 10px;
+}
+
+/* Shared section shell */
+.section {
+  position: relative;
+  padding: var(--section-pad-y) var(--edge);
+  max-width: 1360px;
+  margin: 0 auto;
+}
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--color-ember-soft);
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.eyebrow::before {
+  content: "";
+  width: 26px;
+  height: 1px;
+  background: linear-gradient(90deg, var(--color-ember), transparent);
+}
+
+.sectionTitle {
+  font-family: var(--font-display);
+  font-size: clamp(2.4rem, 6vw, 4.2rem);
+  letter-spacing: 0.01em;
+  line-height: 1.02;
+  margin-top: 14px;
+  text-transform: uppercase;
+  background: linear-gradient(180deg, #fff8f0 0%, var(--color-text) 60%, #b89e8c 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.glassPanel {
+  background: var(--color-panel);
+  border: 1px solid var(--color-panel-border);
+  border-radius: var(--radius-lg);
+  backdrop-filter: blur(18px) saturate(140%);
+  -webkit-backdrop-filter: blur(18px) saturate(140%);
+  box-shadow: 0 24px 60px -32px rgba(0, 0, 0, 0.75);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Visible keyboard focus, kept quiet but present everywhere */
+:focus-visible {
+  outline: 2px solid var(--color-ember-soft);
+  outline-offset: 3px;
+  border-radius: 4px;
+}

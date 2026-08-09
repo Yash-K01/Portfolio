@@ -1,18 +1,59 @@
-# React + Vite
+# Cinematic Portfolio Hero
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+A fullscreen, sticky video hero built with Next.js App Router, React, Three.js
+and GSAP — your talking-head clip as both foreground video and a blurred
+ambient background layer, with a floating warm-ember bokeh field, glass
+controls, and a scroll-triggered entrance.
 
-Currently, two official plugins are available:
+## Run it
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+```bash
+npm install
+npm run dev
+```
 
-## React Compiler
+Open http://localhost:3000.
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+## Structure
 
-Note: This will impact Vite dev & build performances.
+```
+app/
+  layout.js          Fonts + global shell
+  page.js             Renders <VideoIntro /> + a placeholder next section
+  globals.css         Design tokens (color/type/easing) as CSS custom props
+components/
+  VideoIntro.jsx        Hero: video layers, overlays, content, controls, GSAP
+  VideoIntro.module.css Scoped styles for the hero
+  CinematicLayer.jsx    Three.js bokeh/particle canvas (self-contained)
+public/videos/
+  portfolio-vid.mp4     Your uploaded video, used for both fg + bg layers
+```
 
-## Expanding the Oxlint configuration
+## Customize
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+- **Name / role / copy** — edit the props passed to `<VideoIntro />` in
+  `app/page.js`.
+- **Palette** — all colors live as CSS variables at the top of
+  `app/globals.css` (`--color-ember`, `--color-monitor`, etc.). Change once,
+  updates everywhere.
+- **Particle density / color mix** — `COUNT` and the color `roll` weights
+  near the top of `CinematicLayer.jsx`.
+- **Video crop / focal point** — `.fgVideo { object-position }` in
+  `VideoIntro.module.css` (currently centered, biased toward the top third
+  for a talking-head framing).
+- **Next section** — swap the placeholder markup in `app/page.js` for your
+  real case-study / about / contact content. The scroll indicator already
+  targets `#next-section`.
+
+## Notes
+
+- The hero is `position: sticky`, so it holds in place while the next
+  section scrolls up over it — a common cinematic reveal pattern. If you'd
+  rather it scroll away normally, change `.hero { position: sticky }` to
+  `position: relative` in `VideoIntro.module.css`.
+- Both `<video>` tags start muted (autoplay policies require this); the
+  foreground track unmutes on user interaction via the sound button or the
+  "Tap for sound" badge, which auto-hides after 5s.
+- `CinematicLayer` pauses its render loop when the tab is hidden and fully
+  disposes its Three.js geometry/material/texture/renderer on unmount.
+- Respects `prefers-reduced-motion` for the pulse/scroll animations.

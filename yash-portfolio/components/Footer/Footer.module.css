@@ -1,0 +1,46 @@
+.footer {
+  position: relative;
+  padding: 56px var(--edge) 40px;
+  text-align: center;
+  overflow: hidden;
+  border-top: 1px solid var(--color-panel-border);
+}
+
+.glow {
+  position: absolute;
+  left: 50%;
+  bottom: -60%;
+  transform: translateX(-50%);
+  width: 60vw;
+  height: 220px;
+  background: radial-gradient(ellipse at center, rgba(255, 138, 61, 0.16), transparent 70%);
+  pointer-events: none;
+}
+
+.title {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  letter-spacing: 0.03em;
+  color: var(--color-text);
+  position: relative;
+}
+
+.subtext {
+  margin-top: 8px;
+  font-size: 0.82rem;
+  color: var(--color-text-faint);
+  position: relative;
+}
+
+.backTop {
+  margin-top: 24px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-ember-soft);
+  position: relative;
+}
