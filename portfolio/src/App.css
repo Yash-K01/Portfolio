@@ -1,0 +1,85 @@
+/* ---- App Navigation ---- */
+
+.app-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 4vw;
+  background: rgba(8, 8, 10, 0.6);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(245, 242, 236, 0.06);
+}
+
+.nav-brand {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: var(--color-paper);
+  text-decoration: none;
+  letter-spacing: -0.02em;
+  transition: color 0.3s ease;
+}
+
+.nav-brand:hover {
+  color: var(--color-ember);
+}
+
+.nav-links {
+  display: flex;
+  gap: 2rem;
+}
+
+.nav-links a {
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  font-weight: 400;
+  color: var(--color-mist);
+  text-decoration: none;
+  transition: color 0.3s ease;
+  position: relative;
+}
+
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--color-ember);
+  transition: width 0.3s ease;
+}
+
+.nav-links a:hover {
+  color: var(--color-paper);
+}
+
+.nav-links a:hover::after {
+  width: 100%;
+}
+
+/* ---- Responsive ---- */
+
+@media (max-width: 640px) {
+  .app-nav {
+    padding: 1rem 5vw;
+  }
+  
+  .nav-links {
+    gap: 1.2rem;
+  }
+  
+  .nav-links a {
+    font-size: 0.75rem;
+  }
+  
+  .nav-brand {
+    font-size: 0.95rem;
+  }
+}

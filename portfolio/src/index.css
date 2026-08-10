@@ -1,0 +1,53 @@
+:root {
+  /* ---- Color tokens ---- */
+  --color-void: #08080a;
+  --color-void-soft: #101014;
+  --color-ember: #ff7a33;
+  --color-ember-deep: #c24e1d;
+  --color-monitor: #4f7fe0;
+  --color-paper: #f5f2ec;
+  --color-mist: #9a97a3;
+  --color-line: rgba(245, 242, 236, 0.14);
+
+  /* ---- Type tokens ---- */
+  --font-display: "Bricolage Grotesque", "Manrope", system-ui, sans-serif;
+  --font-body: "Manrope", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+
+  --ease-cinematic: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  background: var(--color-void);
+}
+
+body {
+  background: var(--color-void);
+  color: var(--color-paper);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+::selection {
+  background: var(--color-ember);
+  color: var(--color-void);
+}
