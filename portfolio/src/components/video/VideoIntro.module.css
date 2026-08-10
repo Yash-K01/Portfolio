@@ -1,3 +1,5 @@
+/* ---- Hero Section Styles ---- */
+
 .hero {
   position: sticky;
   top: 0;
@@ -313,6 +315,50 @@
 
 .scrollIndicator:hover .scrollLabel {
   color: var(--color-paper);
+}
+
+/* ---------------------------------------------------------------------
+   Next Section Styles (Merged from Home page)
+--------------------------------------------------------------------- */
+
+.nextSection {
+  min-height: 100vh;
+  background: linear-gradient(180deg, #08080a 0%, #0c0c10 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8vh 6vw;
+}
+
+.nextSectionInner {
+  max-width: 640px;
+}
+
+.nextSectionEyebrow {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-ember);
+  margin-bottom: 1.2rem;
+}
+
+.nextSectionHeading {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(1.8rem, 4vw, 3rem);
+  line-height: 1.15;
+  margin-bottom: 1.2rem;
+  color: var(--color-paper);
+}
+
+.nextSectionCopy {
+  font-family: var(--font-body);
+  font-weight: 300;
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: var(--color-mist);
 }
 
 /* ---------------------------------------------------------------------

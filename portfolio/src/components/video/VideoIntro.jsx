@@ -5,13 +5,7 @@ import gsap from "gsap";
 import CinematicLayer from "../cinematic/CinematicLayer";
 import styles from "./VideoIntro.module.css";
 
-export default function VideoIntro({
-  eyebrow,
-  firstName,
-  lastName,
-  subtitle,
-  videoSrc,
-}) {
+export default function VideoIntro() {
   const sectionRef = useRef(null);
   const fgVideoRef = useRef(null);
   const bgVideoRef = useRef(null);
@@ -124,101 +118,123 @@ export default function VideoIntro({
   }
 
   return (
-    <section ref={sectionRef} className={styles.hero}>
-      <div className={styles.frame}>
-        {/* Blurred ambient background layer */}
-        <video
-          ref={bgVideoRef}
-          className={styles.bgVideo}
-          src={videoSrc}
-          autoPlay
-          loop
-          muted
-          playsInline
-          aria-hidden="true"
-        />
+    <>
+      {/* Hero Section */}
+      <section ref={sectionRef} className={styles.hero}>
+        <div className={styles.frame}>
+          {/* Blurred ambient background layer */}
+          <video
+            ref={bgVideoRef}
+            className={styles.bgVideo}
+            src="/src/assets/videos/portfolio-vid.mp4"
+            autoPlay
+            loop
+            muted
+            playsInline
+            aria-hidden="true"
+          />
 
-        {/* Foreground video */}
-        <video
-          ref={fgVideoRef}
-          className={styles.fgVideo}
-          src={videoSrc}
-          autoPlay
-          loop
-          muted={isMuted}
-          playsInline
-        />
+          {/* Foreground video */}
+          <video
+            ref={fgVideoRef}
+            className={styles.fgVideo}
+            src="/src/assets/videos/portfolio-vid.mp4"
+            autoPlay
+            loop
+            muted={isMuted}
+            playsInline
+          />
 
-        {/* Cinematic gradient overlays */}
-        <div className={styles.vignette} />
-        <div className={styles.gradientBottom} />
-        <div className={styles.gradientTop} />
-        <div className={styles.grain} />
+          {/* Cinematic gradient overlays */}
+          <div className={styles.vignette} />
+          <div className={styles.gradientBottom} />
+          <div className={styles.gradientTop} />
+          <div className={styles.grain} />
 
-        {/* Three.js ambient particle layer */}
-        <CinematicLayer className={styles.particleLayer} />
+          {/* Three.js ambient particle layer */}
+          <CinematicLayer className={styles.particleLayer} />
 
-        {/* Content */}
-        <div className={styles.content}>
-          <span className={styles.eyebrow}>{eyebrow}</span>
-
-          <h1 className={styles.name} aria-label={`${firstName} ${lastName}`}>
-            <span className={styles.nameLineWrap}>
-              <span className={styles.nameLine}>{firstName}</span>
+          {/* Content */}
+          <div className={styles.content}>
+            <span className={styles.eyebrow}>
+              Frontend Engineer · Interaction Design
             </span>
-            <span className={styles.nameLineWrap}>
-              <span className={styles.nameLine}>{lastName}</span>
-            </span>
-          </h1>
 
-          <p className={styles.subtitle}>{subtitle}</p>
-        </div>
+            <h1 className={styles.name} aria-label="Aarav Mehta">
+              <span className={styles.nameLineWrap}>
+                <span className={styles.nameLine}>Aarav</span>
+              </span>
+              <span className={styles.nameLineWrap}>
+                <span className={styles.nameLine}>Mehta</span>
+              </span>
+            </h1>
 
-        {/* Controls */}
-        <div className={styles.controls}>
+            <p className={styles.subtitle}>
+              I build motion-driven interfaces where code, film, and light behave like one material — for teams who want their product to feel as considered as it performs.
+            </p>
+          </div>
+
+          {/* Controls */}
+          <div className={styles.controls}>
+            <button
+              type="button"
+              className={styles.glassButton}
+              onClick={togglePlay}
+              aria-label={isPlaying ? "Pause video" : "Play video"}
+            >
+              {isPlaying ? <PauseIcon /> : <PlayIcon />}
+            </button>
+            <button
+              type="button"
+              className={styles.glassButton}
+              onClick={toggleMute}
+              aria-label={isMuted ? "Unmute video" : "Mute video"}
+            >
+              {isMuted ? <MutedIcon /> : <UnmutedIcon />}
+            </button>
+          </div>
+
+          {/* Tap for sound badge */}
           <button
+            ref={hintRef}
             type="button"
-            className={styles.glassButton}
-            onClick={togglePlay}
-            aria-label={isPlaying ? "Pause video" : "Play video"}
-          >
-            {isPlaying ? <PauseIcon /> : <PlayIcon />}
-          </button>
-          <button
-            type="button"
-            className={styles.glassButton}
+            className={styles.soundHint}
             onClick={toggleMute}
-            aria-label={isMuted ? "Unmute video" : "Mute video"}
           >
-            {isMuted ? <MutedIcon /> : <UnmutedIcon />}
+            <span className={styles.soundHintPulse} />
+            <span className={styles.soundHintLabel}>Tap for sound</span>
+          </button>
+
+          {/* Scroll indicator */}
+          <button
+            type="button"
+            className={styles.scrollIndicator}
+            onClick={handleScrollDown}
+            aria-label="Scroll to next section"
+          >
+            <span className={styles.scrollLabel}>Scroll</span>
+            <span className={styles.scrollTrack}>
+              <span className={styles.scrollPulse} />
+            </span>
           </button>
         </div>
+      </section>
 
-        {/* Tap for sound badge */}
-        <button
-          ref={hintRef}
-          type="button"
-          className={styles.soundHint}
-          onClick={toggleMute}
-        >
-          <span className={styles.soundHintPulse} />
-          <span className={styles.soundHintLabel}>Tap for sound</span>
-        </button>
-
-        {/* Scroll indicator */}
-        <button
-          type="button"
-          className={styles.scrollIndicator}
-          onClick={handleScrollDown}
-          aria-label="Scroll to next section"
-        >
-          <span className={styles.scrollLabel}>Scroll</span>
-          <span className={styles.scrollTrack}>
-            <span className={styles.scrollPulse} />
-          </span>
-        </button>
-      </div>
-    </section>
+      {/* Next section — scroll indicator target */}
+      <section id="next-section" className={styles.nextSection}>
+        <div className={styles.nextSectionInner}>
+          <span className={styles.nextSectionEyebrow}>Selected Work</span>
+          <h2 className={styles.nextSectionHeading}>
+            The rest of the story lives below the fold.
+          </h2>
+          <p className={styles.nextSectionCopy}>
+            This anchor is where your case studies, process, and contact
+            sections continue. Swap this block for your own content — the
+            hero above will scroll cleanly out of the way.
+          </p>
+        </div>
+      </section>
+    </>
   );
 }
 
