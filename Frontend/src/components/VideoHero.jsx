@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import CinematicLayer from './CinematicLayer';
 import styles from './VideoHero.module.css';
@@ -6,7 +6,77 @@ import videoSrc from '/portfolio-video.mp4?url';
 
 const NAV_LINKS = ['Projects', 'Skills', 'Experience', 'Education', 'Achievements', 'Contact'];
 
-export default function VideoHero({ isActive }) {
+// Mute/Unmute Icons
+function UnmutedIcon() {
+  return (
+    <svg width="17" height="16" viewBox="0 0 17 16" fill="none">
+      <path
+        d="M2 6h2.8L9 3v10L4.8 10H2V6z"
+        fill="currentColor"
+      />
+      <path
+        d="M11.2 5.2a4 4 0 0 1 0 5.6M13 3.4a7 7 0 0 1 0 9.2"
+        stroke="currentColor"
+        strokeWidth="1.3"
+        strokeLinecap="round"
+        fill="none"
+      />
+    </svg>
+  );
+}
+
+function MutedIcon() {
+  return (
+    <svg width="17" height="16" viewBox="0 0 17 16" fill="none">
+      <path d="M2 6h2.8L9 3v10L4.8 10H2V6z" fill="currentColor" />
+      <path
+        d="M11.5 6.2 15 9.8M15 6.2l-3.5 3.6"
+        stroke="currentColor"
+        strokeWidth="1.3"
+        strokeLinecap="round"
+      />
+    </svg>
+  );
+}
+
+// Custom hook for video mute functionality
+export function useVideoMute(fgVideoRef, bgVideoRef) {
+  const [isMuted, setIsMuted] = useState(true);
+
+  const toggleMute = useCallback((event) => {
+    event?.preventDefault();
+
+    const fg = fgVideoRef.current;
+    if (!fg) return;
+
+    fg.muted = !fg.muted;
+
+    const bg = bgVideoRef.current;
+    if (bg) {
+      bg.muted = fg.muted;
+    }
+
+    setIsMuted(fg.muted);
+  }, [fgVideoRef, bgVideoRef]);
+
+  return { isMuted, toggleMute };
+}
+
+// Mute Button Component
+function MuteButton({ isMuted, toggleMute }) {
+  return (
+    <button
+      type="button"
+      className={styles.muteButton}
+      onClick={(event) => toggleMute(event)}
+      aria-label={isMuted ? "Unmute video" : "Mute video"}
+    >
+      {isMuted ? <MutedIcon /> : <UnmutedIcon />}
+    </button>
+  );
+}
+
+export default function VideoHero() {
   const heroRef = useRef(null);
   const navRef = useRef(null);
   const fgVideoRef = useRef(null);
@@ -14,71 +84,14 @@ export default function VideoHero({ isActive }) {
   const taglineRef = useRef(null);
   const nameRef = useRef(null);
   const ctaRef = useRef(null);
-  const [isMuted, setIsMuted] = useState(true);
-
-  // Toggle mute/unmute
-  const toggleMute = () => {
-    const fg = fgVideoRef.current;
-    const bg = bgVideoRef.current;
-    if (fg && bg) {
-      fg.muted = !fg.muted;
-      bg.muted = !bg.muted;
-      setIsMuted(fg.muted);
-    }
-  };
+  
+  // Use the custom hook
+  const { isMuted, toggleMute } = useVideoMute(fgVideoRef, bgVideoRef);
 
   useEffect(() => {
     const fg = fgVideoRef.current;
     const bg = bgVideoRef.current;
 
-    // Start video muted (always allowed by browser)
-    const startVideos = async () => {
-      try {
-        if (fg) {
-          fg.muted = true;
-          fg.currentTime = 0;
-          await fg.play();
-        }
-        if (bg) {
-          bg.muted = true;
-          bg.currentTime = 0;
-          await bg.play();
-        }
-      } catch (error) {
-        console.error('Failed to start video:', error);
-      }
-    };
-
-    // Unmute when splash screen is done
-    const unmuteVideos = () => {
-      if (fg && bg && isActive) {
-        fg.muted = false;
-        bg.muted = false;
-        setIsMuted(false);
-      }
-    };
-
-    // Start playing muted immediately
-    startVideos();
-
-    // Unmute when splash completes
-    if (isActive) {
-      unmuteVideos();
-    }
-
-    // Stop at last frame when video ends
-    const holdLastFrame = (video) => () => {
-      if (!video) return;
-      video.pause();
-      video.currentTime = Math.max(0, video.duration - 0.05);
-    };
-    
-    const fgHandler = holdLastFrame(fg);
-    const bgHandler = holdLastFrame(bg);
-    fg?.addEventListener('ended', fgHandler);
-    bg?.addEventListener('ended', bgHandler);
-
-    // Animation sequence
     const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
     tl.fromTo(heroRef.current, { opacity: 0 }, { opacity: 1, duration: 1.1 })
       .fromTo(navRef.current, { y: -24, opacity: 0 }, { y: 0, opacity: 1, duration: 0.7 }, '-=0.6')
@@ -87,13 +100,9 @@ export default function VideoHero({ isActive }) {
       .fromTo(ctaRef.current, { y: 16, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6 }, '-=0.4');
 
     return () => {
-      fg?.removeEventListener('ended', fgHandler);
-      bg?.removeEventListener('ended', bgHandler);
       tl.kill();
-      fg?.pause();
-      bg?.pause();
     };
-  }, [isActive]);
+  }, []);
 
   return (
     <section ref={heroRef} className={styles.hero}>
@@ -104,6 +113,9 @@ export default function VideoHero({ isActive }) {
         src={videoSrc}
         playsInline
         preload="auto"
+        muted
+        loop
+        autoPlay
         aria-hidden="true"
       />
 
@@ -114,16 +126,13 @@ export default function VideoHero({ isActive }) {
         src={videoSrc}
         playsInline
         preload="auto"
+        muted
+        loop
+        autoPlay
       />
 
-      {/* Mute/Unmute Button - Top Right Corner */}
-      <button 
-        onClick={toggleMute} 
-        className={styles.muteButton}
-        aria-label={isMuted ? "Unmute" : "Mute"}
-      >
-        {isMuted ? '🔇' : '🔊'}
-      </button>
+      {/* Mute/Unmute Button */}
+      <MuteButton isMuted={isMuted} toggleMute={toggleMute} />
 
       {/* Rest of your UI */}
       <div className={styles.vignette} />

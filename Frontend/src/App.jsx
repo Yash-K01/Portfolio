@@ -8,11 +8,13 @@ export default function App() {
   return (
     <>
       {!introDone && <SplashScreen onComplete={() => setIntroDone(true)} />}
-      <main>
-        <VideoHero isActive={introDone} />
-        {/* Projects / Skills / Experience / Education / Achievements / Contact
-            sections continue below the hero as the page is built out. */}
-      </main>
+      {introDone && (
+        <main>
+          <VideoHero />
+          {/* Projects / Skills / Experience / Education / Achievements / Contact
+              sections continue below the hero as the page is built out. */}
+        </main>
+      )}
     </>
   );
 }

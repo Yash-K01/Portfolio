@@ -331,3 +331,154 @@ function MutedIcon() {
     </svg>
   );
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+import { useState } from "react";
+
+export function useVideoMute(fgVideoRef, bgVideoRef) {
+  const [isMuted, setIsMuted] = useState(true);
+
+  function toggleMute() {
+    const fg = fgVideoRef.current;
+    if (!fg) return;
+    
+    fg.muted = !fg.muted;
+    
+    const bg = bgVideoRef.current;
+    if (bg) {
+      bg.muted = fg.muted;
+    }
+    
+    setIsMuted(fg.muted);
+  }
+
+  function setMuted(muted) {
+    const fg = fgVideoRef.current;
+    if (!fg) return;
+    
+    fg.muted = muted;
+    
+    const bg = bgVideoRef.current;
+    if (bg) {
+      bg.muted = muted;
+    }
+    
+    setIsMuted(muted);
+  }
+
+  return { isMuted, toggleMute, setMuted };
+}
+
+import styles from "./VideoIntro.module.css";
+
+function UnmutedIcon() {
+  return (
+    <svg width="17" height="16" viewBox="0 0 17 16" fill="none">
+      <path
+        d="M2 6h2.8L9 3v10L4.8 10H2V6z"
+        fill="currentColor"
+      />
+      <path
+        d="M11.2 5.2a4 4 0 0 1 0 5.6M13 3.4a7 7 0 0 1 0 9.2"
+        stroke="currentColor"
+        strokeWidth="1.3"
+        strokeLinecap="round"
+        fill="none"
+      />
+    </svg>
+  );
+}
+
+function MutedIcon() {
+  return (
+    <svg width="17" height="16" viewBox="0 0 17 16" fill="none">
+      <path d="M2 6h2.8L9 3v10L4.8 10H2V6z" fill="currentColor" />
+      <path
+        d="M11.5 6.2 15 9.8M15 6.2l-3.5 3.6"
+        stroke="currentColor"
+        strokeWidth="1.3"
+        strokeLinecap="round"
+      />
+    </svg>
+  );
+}
+
+export default function MuteButton({ isMuted, toggleMute }) {
+  return (
+    <button
+      type="button"
+      className={styles.glassButton}
+      onClick={toggleMute}
+      aria-label={isMuted ? "Unmute video" : "Mute video"}
+    >
+      {isMuted ? <MutedIcon /> : <UnmutedIcon />}
+    </button>
+  );
+}
