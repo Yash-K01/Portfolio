@@ -53,7 +53,7 @@ export function useVideoMute(fgVideoRef, bgVideoRef) {
 
     const bg = bgVideoRef.current;
     if (bg) {
-      bg.muted = fg.muted;
+      bg.muted = true;
     }
 
     setIsMuted(fg.muted);
