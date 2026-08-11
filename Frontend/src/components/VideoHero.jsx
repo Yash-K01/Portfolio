@@ -40,7 +40,7 @@ function MutedIcon() {
 }
 
 // Custom hook for video mute functionality
-export function useVideoMute(fgVideoRef, bgVideoRef) {
+export function useVideoMute(fgVideoRef) {
   const [isMuted, setIsMuted] = useState(true);
 
   const toggleMute = useCallback((event) => {
@@ -50,14 +50,8 @@ export function useVideoMute(fgVideoRef, bgVideoRef) {
     if (!fg) return;
 
     fg.muted = !fg.muted;
-
-    const bg = bgVideoRef.current;
-    if (bg) {
-      bg.muted = true;
-    }
-
     setIsMuted(fg.muted);
-  }, [fgVideoRef, bgVideoRef]);
+  }, [fgVideoRef]);
 
   return { isMuted, toggleMute };
 }
@@ -80,17 +74,15 @@ export default function VideoHero() {
   const heroRef = useRef(null);
   const navRef = useRef(null);
   const fgVideoRef = useRef(null);
-  const bgVideoRef = useRef(null);
   const taglineRef = useRef(null);
   const nameRef = useRef(null);
   const ctaRef = useRef(null);
   
   // Use the custom hook
-  const { isMuted, toggleMute } = useVideoMute(fgVideoRef, bgVideoRef);
+  const { isMuted, toggleMute } = useVideoMute(fgVideoRef);
 
   useEffect(() => {
     const fg = fgVideoRef.current;
-    const bg = bgVideoRef.current;
 
     const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
     tl.fromTo(heroRef.current, { opacity: 0 }, { opacity: 1, duration: 1.1 })
@@ -106,19 +98,6 @@ export default function VideoHero() {
 
   return (
     <section ref={heroRef} className={styles.hero}>
-      {/* Background video */}
-      <video
-        ref={bgVideoRef}
-        className={styles.bgVideo}
-        src={videoSrc}
-        playsInline
-        preload="auto"
-        muted
-        loop
-        autoPlay
-        aria-hidden="true"
-      />
-
       {/* Foreground video */}
       <video
         ref={fgVideoRef}
