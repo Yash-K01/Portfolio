@@ -1,0 +1,311 @@
+.hero {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  height: 100vh;
+  min-height: 640px;
+  overflow: hidden;
+  background: var(--color-void);
+  opacity: 0;
+}
+
+/* ---------- video layers ---------- */
+
+.bgVideo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: blur(38px) saturate(1.15) brightness(0.55);
+  transform: scale(1.15);
+  z-index: 0;
+}
+
+.fgVideo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 20%;
+  z-index: 1;
+}
+
+/* ---------- cinematic gradients ---------- */
+
+.vignette {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background: radial-gradient(120% 90% at 50% 45%, rgba(10, 9, 8, 0) 45%, rgba(10, 9, 8, 0.78) 100%);
+  pointer-events: none;
+}
+
+.gradientBottom {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 62%;
+  z-index: 2;
+  background: linear-gradient(180deg, rgba(10, 9, 8, 0) 0%, rgba(10, 9, 8, 0.55) 45%, rgba(10, 9, 8, 0.96) 100%);
+  pointer-events: none;
+}
+
+.gradientTop {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 30%;
+  z-index: 2;
+  background: linear-gradient(180deg, rgba(10, 9, 8, 0.85) 0%, rgba(10, 9, 8, 0) 100%);
+  pointer-events: none;
+}
+
+/* ---------- navbar ---------- */
+
+.nav {
+  position: absolute;
+  top: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 2.5rem;
+  width: min(1180px, 92%);
+  padding: 0.6rem 0.75rem 0.6rem 0.6rem;
+  border-radius: 999px;
+  background: rgba(20, 17, 14, 0.45);
+  border: 1px solid rgba(245, 243, 239, 0.08);
+  backdrop-filter: blur(18px) saturate(1.4);
+  -webkit-backdrop-filter: blur(18px) saturate(1.4);
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  background: var(--color-mist);
+  color: var(--color-void);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.85rem;
+  letter-spacing: 0.02em;
+  flex-shrink: 0;
+}
+
+.navLinks {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  flex: 1;
+}
+
+.navLink {
+  position: relative;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-mist-dim);
+  padding-bottom: 0.3rem;
+  transition: color 0.3s var(--ease-cinematic);
+}
+
+.navLink::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 1.5px;
+  background: var(--color-mint);
+  box-shadow: 0 0 8px rgba(62, 242, 163, 0.7);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.35s var(--ease-cinematic);
+}
+
+.navLink:hover {
+  color: var(--color-mist);
+}
+
+.navLink:hover::after {
+  transform: scaleX(1);
+}
+
+.connectBtn {
+  flex-shrink: 0;
+  padding: 0.55rem 1.3rem;
+  border-radius: 999px;
+  background: var(--color-mint);
+  color: var(--color-void);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  transition: transform 0.3s var(--ease-cinematic), box-shadow 0.3s var(--ease-cinematic);
+}
+
+.connectBtn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(62, 242, 163, 0.35);
+}
+
+/* ---------- overlay content ---------- */
+
+.content {
+  position: absolute;
+  left: 50%;
+  bottom: 9%;
+  transform: translateX(-50%);
+  z-index: 6;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  width: min(900px, 92%);
+}
+
+.tagline {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  margin-bottom: 1.1rem;
+  padding: 0.5rem 1rem;
+  border-radius: 999px;
+  background: rgba(62, 242, 163, 0.08);
+  border: 1px solid rgba(62, 242, 163, 0.28);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  color: var(--color-mint);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-mint);
+  box-shadow: 0 0 10px rgba(62, 242, 163, 0.9);
+}
+
+.name {
+  margin: 0 0 1.8rem;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(2.8rem, 8vw, 5.5rem);
+  line-height: 0.98;
+  letter-spacing: -0.02em;
+  color: var(--color-mist);
+  text-shadow: 0 12px 40px rgba(0, 0, 0, 0.55);
+}
+
+.ctaRow {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.exploreBtn,
+.contactBtn {
+  padding: 0.85rem 2rem;
+  border-radius: 999px;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: transform 0.3s var(--ease-cinematic), box-shadow 0.3s var(--ease-cinematic);
+}
+
+.exploreBtn {
+  background: var(--color-mist);
+  color: var(--color-void);
+}
+
+.exploreBtn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 28px rgba(245, 243, 239, 0.25);
+}
+
+.contactBtn {
+  color: var(--color-mist);
+  background: rgba(245, 243, 239, 0.08);
+  border: 1px solid rgba(245, 243, 239, 0.28);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.contactBtn:hover {
+  transform: translateY(-2px);
+  background: rgba(245, 243, 239, 0.14);
+}
+
+/* ---------- responsive ---------- */
+
+@media (max-width: 860px) {
+  .navLinks {
+    display: none;
+  }
+  .nav {
+    justify-content: space-between;
+    gap: 1rem;
+  }
+}
+
+@media (max-width: 520px) {
+  .content {
+    bottom: 7%;
+  }
+  .name {
+    font-size: clamp(2.4rem, 11vw, 3.2rem);
+  }
+  .exploreBtn,
+  .contactBtn {
+    padding: 0.75rem 1.5rem;
+    font-size: 0.85rem;
+  }
+}
+
+.muteButton {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1000;
+  background: rgba(0, 0, 0, 0.6);
+  color: white;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  font-size: 22px;
+  cursor: pointer;
+  backdrop-filter: blur(8px);
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.muteButton:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.6);
+  transform: scale(1.1);
+}
+
+.muteButton:active {
+  transform: scale(0.95);
+}

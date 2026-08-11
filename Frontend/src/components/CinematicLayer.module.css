@@ -1,0 +1,13 @@
+.layer {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  mix-blend-mode: screen;
+}
+
+.layer canvas {
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+}

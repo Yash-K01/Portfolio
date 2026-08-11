@@ -1,0 +1,67 @@
+:root {
+  /* Color tokens */
+  --color-void: #0a0908;          /* near-black cinematic backdrop */
+  --color-void-soft: #14110e;     /* slightly lifted panel black */
+  --color-ember: #ff8a3d;         /* warm practical-light orange */
+  --color-ember-soft: #ffb37a;    /* soft glow orange */
+  --color-mint: #3ef2a3;          /* cinematic accent green */
+  --color-mint-dim: #2bb87d;
+  --color-mist: #f5f3ef;          /* warm white */
+  --color-mist-dim: rgba(245, 243, 239, 0.62);
+  --color-monitor-blue: #5ec8e8;  /* soft screen glow */
+
+  /* Type tokens */
+  --font-display: 'Space Grotesk', 'Helvetica Neue', sans-serif;
+  --font-body: 'Inter', 'Helvetica Neue', sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+
+  /* Motion */
+  --ease-cinematic: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background: var(--color-void);
+  color: var(--color-mist);
+  font-family: var(--font-body);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  scroll-behavior: smooth;
+}
+
+#root {
+  min-height: 100vh;
+  background: var(--color-void);
+}
+
+button {
+  font-family: var(--font-body);
+  cursor: pointer;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+::selection {
+  background: var(--color-mint);
+  color: var(--color-void);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
