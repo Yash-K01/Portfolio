@@ -1,10 +1,10 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
-import CinematicLayer from './CinematicLayer';
+import CinematicLayer from '../CinematicLayer/CinematicLayer';
 import styles from './VideoHero.module.css';
 import videoSrc from '/portfolio-video.mp4?url';
 
-const NAV_LINKS = ['Projects', 'Skills', 'Experience', 'Education', 'Achievements', 'Contact'];
+const NAV_LINKS = ['About','Projects', 'Skills', 'Experience', 'Education', 'Achievements', 'Contact'];
 
 // Mute/Unmute Icons
 function UnmutedIcon() {
@@ -121,6 +121,7 @@ export default function VideoHero() {
 
       <nav ref={navRef} className={styles.nav}>
         <div className={styles.logo}>YK</div>
+        <div>Yash Khartode</div>
         <ul className={styles.navLinks}>
           {NAV_LINKS.map((link) => (
             <li key={link}>
@@ -130,9 +131,6 @@ export default function VideoHero() {
             </li>
           ))}
         </ul>
-        <a href="#contact" className={styles.connectBtn}>
-          Connect
-        </a>
       </nav>
 
       <div className={styles.content}>

@@ -1,0 +1,61 @@
+.skills {
+  position: relative;
+}
+
+.categories {
+  margin-top: 44px;
+  display: flex;
+  flex-direction: column;
+  gap: 34px;
+}
+
+.category {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.categoryLabel {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-blue-glow);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.categoryLabel::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(79, 168, 255, 0.35), transparent);
+}
+
+.pillRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  perspective: 800px;
+}
+
+.pill {
+  position: relative;
+  padding: 11px 20px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--color-panel-border);
+  font-size: 0.85rem;
+  color: var(--color-text);
+  transition: transform 0.35s var(--ease-cinema), background 0.35s, border-color 0.35s, box-shadow 0.35s;
+  transform-style: preserve-3d;
+}
+
+.pill:hover {
+  transform: translateY(-6px) scale(1.06);
+  background: rgba(255, 138, 61, 0.1);
+  border-color: rgba(255, 154, 77, 0.45);
+  box-shadow: 0 14px 30px -14px rgba(255, 122, 51, 0.45);
+  color: #fff;
+}
