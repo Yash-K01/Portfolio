@@ -77,9 +77,30 @@ export default function VideoHero() {
   const taglineRef = useRef(null);
   const nameRef = useRef(null);
   const ctaRef = useRef(null);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   
   // Use the custom hook
   const { isMuted, toggleMute } = useVideoMute(fgVideoRef);
+
+  const toggleMenu = useCallback(() => {
+    setIsMenuOpen(prev => !prev);
+  }, []);
+
+  const closeMenu = useCallback(() => {
+    setIsMenuOpen(false);
+  }, []);
+
+  // Prevent scroll when menu is open
+  useEffect(() => {
+    if (isMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [isMenuOpen]);
 
   useEffect(() => {
     const fg = fgVideoRef.current;
@@ -97,8 +118,18 @@ export default function VideoHero() {
   }, []);
 
   return (
-    <section ref={heroRef} className={styles.hero}>
-      {/* Foreground video */}
+    <section id="hero" ref={heroRef} className={styles.hero}>
+      <video
+        className={styles.bgVideo}
+        src={videoSrc}
+        playsInline
+        preload="auto"
+        muted
+        loop
+        autoPlay
+        aria-hidden="true"
+      />
+
       <video
         ref={fgVideoRef}
         className={styles.fgVideo}
@@ -108,6 +139,7 @@ export default function VideoHero() {
         muted
         loop
         autoPlay
+        aria-hidden="true"
       />
 
       {/* Mute/Unmute Button */}
@@ -120,29 +152,79 @@ export default function VideoHero() {
       <CinematicLayer />
 
       <nav ref={navRef} className={styles.nav}>
-        <div className={styles.logo}>YK</div>
-        <div>Yash Khartode</div>
-        <ul className={styles.navLinks}>
-          {NAV_LINKS.map((link) => (
-            <li key={link}>
-              <a href={`#${link.toLowerCase()}`} className={styles.navLink}>
-                {link}
-              </a>
-            </li>
-          ))}
-        </ul>
+         <div className={styles.navLeft}>
+            <a href="/" className={styles.logoLink}>
+              <div className={styles.logo}>YK</div>
+            </a>
+            <a href="/" className={styles.nameLink}>
+              Yash Khartode
+            </a>
+          </div>
+
+        <div className={styles.navLinksWrapper}>
+          <ul className={styles.navLinks}>
+            {NAV_LINKS.map((link) => (
+              <li key={link}>
+                <a href={`#${link.toLowerCase()}`} className={styles.navLink}>
+                  {link}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <button 
+          className={`${styles.hamburger} ${isMenuOpen ? styles.active : ''}`}
+          onClick={toggleMenu}
+          aria-label="Toggle navigation menu"
+          aria-expanded={isMenuOpen}
+        >
+          <span />
+          <span />
+          <span />
+        </button>
       </nav>
+
+      {/* Mobile Navigation Menu */}
+      <div className={`${styles.mobileNav} ${isMenuOpen ? styles.open : ''}`}>
+        {/* Close Button */}
+        <button 
+          className={styles.closeButton}
+          onClick={closeMenu}
+          aria-label="Close menu"
+        >
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+            <path 
+              d="M8 8L24 24M24 8L8 24" 
+              stroke="currentColor" 
+              strokeWidth="2.5" 
+              strokeLinecap="round"
+            />
+          </svg>
+        </button>
+
+        {NAV_LINKS.map((link) => (
+          <a 
+            key={link}
+            href={`#${link.toLowerCase()}`} 
+            className={styles.mobileNavLink}
+            onClick={closeMenu}
+          >
+            {link}
+          </a>
+        ))}
+      </div>
 
       <div className={styles.content}>
         <div ref={taglineRef} className={styles.tagline}>
           <span className={styles.dot} />
-          AI/ML Engineer &nbsp;·&nbsp; Web Developer
+          AI/ML Engineer &nbsp;-&nbsp; Web Developer
         </div>
         <h1 ref={nameRef} className={styles.name}>
           Yash Khartode
         </h1>
         <div ref={ctaRef} className={styles.ctaRow}>
-          <a href="#projects" className={styles.exploreBtn}>
+          <a href="#about" className={styles.exploreBtn}>
             Explore
           </a>
           <a href="#contact" className={styles.contactBtn}>

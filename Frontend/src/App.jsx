@@ -7,6 +7,7 @@ import Experience from './components/Experience/Experience';
 import Education from './components/Education/Education';
 import Achievements from './components/Achievements/Achievements';
 import Contact from './components/Contact/Contact';
+import Footer from './components/Footer/Footer';
 
 export default function App() {
   const [introDone, setIntroDone] = useState(false);
@@ -21,6 +22,7 @@ export default function App() {
       <Education/>
       <Achievements/>
       <Contact/>
+      <Footer/>
     </>
   );
 }
