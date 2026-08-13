@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import styles from './Contact.module.css';
+import styles from './ContactFooter.module.css';
 import { profile } from '../../data/portfolioData';
 import { useGsapReveal } from '../../hooks/useGsapReveal';
 
-export default function Contact() {
+export default function ContactFooter() {
   const scopeRef = useGsapReveal();
   const [copiedKey, setCopiedKey] = useState(null);
   const [form, setForm] = useState({ name: '', email: '', message: '' });
@@ -43,101 +43,122 @@ export default function Contact() {
     }
   }
 
+  function scrollTop(e) {
+    e.preventDefault();
+    document.getElementById('hero')?.scrollIntoView({ behavior: 'smooth' });
+  }
+
   return (
-    <section id="contact" className="section" ref={scopeRef}>
-      <span className="eyebrow" data-reveal>
-        Let&apos;s Connect
-      </span>
-      <h2 className="sectionTitle" data-reveal data-reveal-delay="0.06">
-        Contact
-      </h2>
+    <>
+      {/* Contact Section */}
+      <section id="contact" className="section" ref={scopeRef}>
+        <span className="eyebrow" data-reveal>
+          Let&apos;s Connect
+        </span>
+        <h2 className="sectionTitle" data-reveal data-reveal-delay="0.06">
+          Contact
+        </h2>
 
-      <div className={styles.grid}>
-        <div className={`glassPanel ${styles.infoCard}`} data-reveal data-reveal-delay="0.12">
-          <h3 className={styles.name}>{profile.name.first} {profile.name.last}</h3>
+        <div className={styles.grid}>
+          <div className={`glassPanel ${styles.infoCard}`} data-reveal data-reveal-delay="0.12">
+            <h3 className={styles.name}>{profile.name.first} {profile.name.last}</h3>
 
-          <div className={styles.rows}>
-            <button
-              type="button"
-              className={`${styles.row} ${styles.clickable}`}
-              onClick={() => handleCopy('email', profile.email)}
-            >
-              <span className={styles.rowIcon}><MailIcon /></span>
-              <span className={styles.rowText}>
-                <span className={styles.rowLabel}>Email</span>
-                <span className={styles.rowValue}>{profile.email}</span>
-              </span>
-              {copiedKey === 'email' && <span className={styles.copiedTag}>Copied</span>}
-            </button>
+            <div className={styles.rows}>
+              <button
+                type="button"
+                className={`${styles.row} ${styles.clickable}`}
+                onClick={() => handleCopy('email', profile.email)}
+              >
+                <span className={styles.rowIcon}><MailIcon /></span>
+                <span className={styles.rowText}>
+                  <span className={styles.rowLabel}>Email</span>
+                  <span className={styles.rowValue}>{profile.email}</span>
+                </span>
+                {copiedKey === 'email' && <span className={styles.copiedTag}>Copied</span>}
+              </button>
 
-            <button
-              type="button"
-              className={`${styles.row} ${styles.clickable}`}
-              onClick={() => handleCopy('phone', profile.phone)}
-            >
-              <span className={styles.rowIcon}><PhoneIcon /></span>
-              <span className={styles.rowText}>
-                <span className={styles.rowLabel}>Phone</span>
-                <span className={styles.rowValue}>{profile.phone}</span>
-              </span>
-              {copiedKey === 'phone' && <span className={styles.copiedTag}>Copied</span>}
-            </button>
+              <button
+                type="button"
+                className={`${styles.row} ${styles.clickable}`}
+                onClick={() => handleCopy('phone', profile.phone)}
+              >
+                <span className={styles.rowIcon}><PhoneIcon /></span>
+                <span className={styles.rowText}>
+                  <span className={styles.rowLabel}>Phone</span>
+                  <span className={styles.rowValue}>{profile.phone}</span>
+                </span>
+                {copiedKey === 'phone' && <span className={styles.copiedTag}>Copied</span>}
+              </button>
 
-            <div className={styles.row}>
-              <span className={styles.rowIcon}><PinIcon /></span>
-              <span className={styles.rowText}>
-                <span className={styles.rowLabel}>Location</span>
-                <span className={styles.rowValue}>{profile.location}</span>
-              </span>
+              <div className={styles.row}>
+                <span className={styles.rowIcon}><PinIcon /></span>
+                <span className={styles.rowText}>
+                  <span className={styles.rowLabel}>Location</span>
+                  <span className={styles.rowValue}>{profile.location}</span>
+                </span>
+              </div>
+            </div>
+
+            <div className={styles.socials}>
+              <a className={styles.socialBtn} href={profile.links.linkedin} target="_blank" rel="noopener noreferrer">
+                LinkedIn
+              </a>
+              <a className={styles.socialBtn} href={profile.links.github} target="_blank" rel="noopener noreferrer">
+                GitHub
+              </a>
+              <a className={styles.socialBtn} href={profile.links.portfolio} target="_blank" rel="noopener noreferrer">
+                Portfolio
+              </a>
             </div>
           </div>
 
-          <div className={styles.socials}>
-            <a className={styles.socialBtn} href={profile.links.linkedin} target="_blank" rel="noopener noreferrer">
-              LinkedIn
-            </a>
-            <a className={styles.socialBtn} href={profile.links.github} target="_blank" rel="noopener noreferrer">
-              GitHub
-            </a>
-            <a className={styles.socialBtn} href={profile.links.portfolio} target="_blank" rel="noopener noreferrer">
-              Portfolio
-            </a>
-          </div>
+          <form className={`glassPanel ${styles.formCard}`} onSubmit={handleSubmit} data-reveal data-reveal-delay="0.18">
+            <h3 className={styles.formTitle}>Send a message</h3>
+
+            <div className={styles.field}>
+              <label htmlFor="name">Name</label>
+              <input id="name" name="name" type="text" required value={form.name} onChange={handleChange} placeholder="Your name" />
+            </div>
+
+            <div className={styles.field}>
+              <label htmlFor="email">Email</label>
+              <input id="email" name="email" type="email" required value={form.email} onChange={handleChange} placeholder="you@example.com" />
+            </div>
+
+            <div className={styles.field}>
+              <label htmlFor="message">Message</label>
+              <textarea id="message" name="message" required value={form.message} onChange={handleChange} placeholder="Tell me about your project or role..." />
+            </div>
+
+            <button type="submit" className={styles.submitBtn} disabled={status.state === 'loading'}>
+              {status.state === 'loading' ? 'Sending...' : 'Send Message'}
+            </button>
+
+            {status.text && (
+              <p className={`${styles.statusMsg} ${status.state === 'success' ? styles.success : styles.error}`}>
+                {status.text}
+              </p>
+            )}
+          </form>
         </div>
+      </section>
 
-        <form className={`glassPanel ${styles.formCard}`} onSubmit={handleSubmit} data-reveal data-reveal-delay="0.18">
-          <h3 className={styles.formTitle}>Send a message</h3>
-
-          <div className={styles.field}>
-            <label htmlFor="name">Name</label>
-            <input id="name" name="name" type="text" required value={form.name} onChange={handleChange} placeholder="Your name" />
-          </div>
-
-          <div className={styles.field}>
-            <label htmlFor="email">Email</label>
-            <input id="email" name="email" type="email" required value={form.email} onChange={handleChange} placeholder="you@example.com" />
-          </div>
-
-          <div className={styles.field}>
-            <label htmlFor="message">Message</label>
-            <textarea id="message" name="message" required value={form.message} onChange={handleChange} placeholder="Tell me about your project or role..." />
-          </div>
-
-          <button type="submit" className={styles.submitBtn} disabled={status.state === 'loading'}>
-            {status.state === 'loading' ? 'Sending...' : 'Send Message'}
-          </button>
-
-          {status.text && (
-            <p className={`${styles.statusMsg} ${status.state === 'success' ? styles.success : styles.error}`}>
-              {status.text}
-            </p>
-          )}
-        </form>
-      </div>
-    </section>
+      {/* Footer */}
+      <footer className={styles.footer}>
+        <div className={styles.glow} />
+        <p className={styles.title}>Designed &amp; Developed by Yash Khartode</p>
+        <p className={styles.subtext}>
+          Building intelligent software with AI, cloud, and modern web technologies.
+        </p>
+        <a href="#hero" className={styles.backTop} onClick={scrollTop}>
+          ↑ Back to top
+        </a>
+      </footer>
+    </>
   );
 }
 
+// Icons
 function MailIcon() {
   return (
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
@@ -146,6 +167,7 @@ function MailIcon() {
     </svg>
   );
 }
+
 function PhoneIcon() {
   return (
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
@@ -153,6 +175,7 @@ function PhoneIcon() {
     </svg>
   );
 }
+
 function PinIcon() {
   return (
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">

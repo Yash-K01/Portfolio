@@ -1,0 +1,182 @@
+/* ===== Skills Styles ===== */
+.skillsCategories {
+  margin-top: 44px;
+  display: flex;
+  flex-direction: column;
+  gap: 34px;
+}
+
+.skillsCategory {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.skillsCategoryLabel {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-blue-glow);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.skillsCategoryLabel::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(79, 168, 255, 0.35), transparent);
+}
+
+.skillsPillRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  perspective: 800px;
+}
+
+.skillsPill {
+  position: relative;
+  padding: 11px 20px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--color-panel-border);
+  font-size: 0.85rem;
+  color: var(--color-text);
+  transition: transform 0.35s var(--ease-cinema), background 0.35s, border-color 0.35s, box-shadow 0.35s;
+  transform-style: preserve-3d;
+  cursor: default;
+}
+
+.skillsPill:hover {
+  transform: translateY(-6px) scale(1.06);
+  background: rgba(255, 138, 61, 0.1);
+  border-color: rgba(255, 154, 77, 0.45);
+  box-shadow: 0 14px 30px -14px rgba(255, 122, 51, 0.45);
+  color: #fff;
+}
+
+/* ===== Experience Styles ===== */
+.expTimeline {
+  position: relative;
+  margin-top: 50px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.expTimeline::before {
+  content: "";
+  position: absolute;
+  left: 9px;
+  top: 10px;
+  bottom: 10px;
+  width: 1px;
+  background: linear-gradient(180deg, var(--color-ember), var(--color-blue-glow), transparent);
+}
+
+.expItem {
+  position: relative;
+  padding: 26px 0 26px 46px;
+}
+
+.expDot {
+  position: absolute;
+  left: 3px;
+  top: 30px;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background: var(--color-bg);
+  border: 2px solid var(--color-ember-soft);
+  box-shadow: 0 0 0 6px rgba(255, 138, 61, 0.1), 0 0 18px 2px rgba(255, 122, 51, 0.35);
+}
+
+.expCard {
+  padding: 26px 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.expCardTop {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 10px;
+  align-items: baseline;
+}
+
+.expRole {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  letter-spacing: 0.01em;
+  color: var(--color-text);
+}
+
+.expOrg {
+  color: var(--color-ember-soft);
+  font-weight: 600;
+}
+
+.expDuration {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.06em;
+  color: var(--color-text-faint);
+  white-space: nowrap;
+}
+
+.expMeta {
+  font-size: 0.78rem;
+  color: var(--color-text-dim);
+}
+
+.expPoints {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.expPoints li {
+  position: relative;
+  padding-left: 16px;
+  font-size: 0.9rem;
+  line-height: 1.55;
+  color: var(--color-text-dim);
+}
+
+.expPoints li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 8px;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--color-blue-glow);
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 768px) {
+  .expRole {
+    font-size: 1.1rem;
+  }
+  
+  .expCard {
+    padding: 20px;
+  }
+  
+  .expItem {
+    padding: 20px 0 20px 40px;
+  }
+  
+  .skillsPill {
+    font-size: 0.78rem;
+    padding: 9px 16px;
+  }
+}

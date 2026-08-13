@@ -1,0 +1,139 @@
+/* ===== Education Styles ===== */
+.eduGrid {
+  margin-top: 44px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 22px;
+}
+
+.eduCard {
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  transition: transform 0.4s var(--ease-cinema), border-color 0.4s;
+}
+
+.eduCard:hover {
+  transform: translateY(-6px);
+  border-color: rgba(255, 154, 77, 0.35);
+}
+
+.degree {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  color: var(--color-text);
+  letter-spacing: 0.01em;
+}
+
+.school {
+  font-size: 0.9rem;
+  color: var(--color-ember-soft);
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.metaRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 8px;
+  padding-top: 12px;
+  border-top: 1px solid var(--color-panel-border);
+}
+
+.duration {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.04em;
+  color: var(--color-text-faint);
+}
+
+.score {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: rgba(79, 168, 255, 0.12);
+  color: var(--color-blue-glow);
+  border: 1px solid rgba(79, 168, 255, 0.25);
+}
+
+.location {
+  font-size: 0.78rem;
+  color: var(--color-text-faint);
+}
+
+/* ===== Achievements Styles ===== */
+.achGrid {
+  margin-top: 44px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 22px;
+}
+
+.achCard {
+  position: relative;
+  padding: 26px 28px;
+  display: flex;
+  align-items: flex-start;
+  gap: 18px;
+  overflow: hidden;
+  transition: transform 0.4s var(--ease-cinema), border-color 0.4s;
+}
+
+.achCard:hover {
+  transform: translateY(-6px);
+  border-color: rgba(255, 154, 77, 0.4);
+}
+
+.badge {
+  flex-shrink: 0;
+  width: 46px;
+  height: 46px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, rgba(255, 138, 61, 0.18), rgba(79, 168, 255, 0.12));
+  border: 1px solid rgba(255, 154, 77, 0.3);
+  color: var(--color-ember-soft);
+  animation: float 5s ease-in-out infinite;
+}
+
+.achCard:nth-child(2n) .badge {
+  animation-delay: -1.6s;
+}
+
+.achCard:nth-child(3n) .badge {
+  animation-delay: -3.1s;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-text);
+  line-height: 1.4;
+}
+
+.meta {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.04em;
+  color: var(--color-text-faint);
+}
+
+.issuer {
+  color: var(--color-blue-glow);
+}

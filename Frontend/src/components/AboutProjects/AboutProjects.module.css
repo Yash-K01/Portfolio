@@ -1,15 +1,60 @@
-.projects {
+/* ===== About Styles ===== */
+.about {
   position: relative;
 }
 
-.grid {
+.aboutGrid {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: clamp(32px, 6vw, 80px);
+  margin-top: 40px;
+  align-items: start;
+}
+
+.aboutCopy {
+  font-size: clamp(1.05rem, 1.6vw, 1.35rem);
+  line-height: 1.75;
+  color: var(--color-text);
+  font-weight: 400;
+}
+
+.aboutStatsPanel {
+  padding: 28px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+.aboutStat {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.aboutStatValue {
+  font-family: var(--font-display);
+  font-size: 2.4rem;
+  color: var(--color-ember-soft);
+  line-height: 1;
+}
+
+.aboutStatLabel {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-text-faint);
+}
+
+/* ===== Projects Styles ===== */
+.projectsGrid {
   margin-top: 44px;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
   gap: 26px;
 }
 
-.card {
+.projectCard {
   position: relative;
   padding: 30px;
   display: flex;
@@ -20,14 +65,14 @@
   will-change: transform;
 }
 
-.card:hover {
+.projectCard:hover {
   border-color: rgba(255, 154, 77, 0.4);
   box-shadow:
     0 30px 70px -30px rgba(0, 0, 0, 0.8),
     0 0 60px -18px rgba(255, 122, 51, 0.35);
 }
 
-.cardGlow {
+.projectCardGlow {
   position: absolute;
   inset: 0;
   border-radius: var(--radius-lg);
@@ -37,25 +82,25 @@
   pointer-events: none;
 }
 
-.card:hover .cardGlow {
+.projectCard:hover .projectCardGlow {
   opacity: 1;
 }
 
-.cardHeader {
+.projectCardHeader {
   display: flex;
   justify-content: space-between;
   align-items: baseline;
   gap: 12px;
 }
 
-.cardTitle {
+.projectCardTitle {
   font-family: var(--font-display);
   font-size: 1.5rem;
   letter-spacing: 0.01em;
   color: var(--color-text);
 }
 
-.cardDuration {
+.projectCardDuration {
   font-family: var(--font-mono);
   font-size: 0.68rem;
   letter-spacing: 0.06em;
@@ -63,14 +108,14 @@
   white-space: nowrap;
 }
 
-.cardPoints {
+.projectCardPoints {
   list-style: none;
   display: flex;
   flex-direction: column;
   gap: 8px;
 }
 
-.cardPoints li {
+.projectCardPoints li {
   position: relative;
   padding-left: 16px;
   font-size: 0.9rem;
@@ -78,7 +123,7 @@
   color: var(--color-text-dim);
 }
 
-.cardPoints li::before {
+.projectCardPoints li::before {
   content: "";
   position: absolute;
   left: 0;
@@ -89,7 +134,7 @@
   background: var(--color-blue-glow);
 }
 
-.stack {
+.projectStack {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
@@ -97,7 +142,7 @@
   padding-top: 6px;
 }
 
-.stackPill {
+.projectStackPill {
   font-family: var(--font-mono);
   font-size: 0.66rem;
   letter-spacing: 0.03em;
@@ -108,13 +153,13 @@
   color: var(--color-text-faint);
 }
 
-.cardActions {
+.projectCardActions {
   display: flex;
   gap: 10px;
   margin-top: 4px;
 }
 
-.actionBtn {
+.projectActionBtn {
   flex: 1;
   text-align: center;
   padding: 10px 14px;
@@ -126,14 +171,35 @@
   transition: all 0.3s var(--ease-cinema);
 }
 
-.actionBtn:hover {
+.projectActionBtn:hover {
   color: var(--color-bg);
   background: linear-gradient(135deg, var(--color-ember-soft), var(--color-ember));
   border-color: transparent;
 }
 
-.actionBtn.primary {
+.projectActionBtnPrimary {
   background: rgba(255, 138, 61, 0.1);
   border-color: rgba(255, 154, 77, 0.3);
   color: var(--color-ember-soft);
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 860px) {
+  .aboutGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .projectCard {
+    padding: 22px;
+  }
+  
+  .projectCardTitle {
+    font-size: 1.2rem;
+  }
+  
+  .projectCardDuration {
+    font-size: 0.6rem;
+  }
 }
