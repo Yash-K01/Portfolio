@@ -1,8 +1,11 @@
 import { useState } from 'react';
 import VideoHero from './components/VideoHero/VideoHero';
-import AboutProjects from './components/AboutProjects/AboutProjects';
-import ExperienceSkills from './components/ExperienceSkills/ExperienceSkills';
+import About from './components/About/About';
+import Projects from './components/Projects/Projects';
+import Skills from './components/Skills/Skills';
+import Experience from './components/Experience/Experience';
 import Education from './components/Education/Education';
+import Achievements from './components/Achievements/Achievements';
 import Contact from './components/Contact/Contact';
 
 export default function App() {
@@ -11,10 +14,13 @@ export default function App() {
   return (
     <>
       <VideoHero />
-      <AboutProjects />
-      <ExperienceSkills/>
-      <Education/>
-      <Contact/>
+      <About />
+      <Projects />
+      <Skills />
+      <Experience />
+      <Education />
+      <Achievements />
+      <Contact />
     </>
   );
 }

@@ -61,6 +61,8 @@ section {
   scroll-snap-align: start;
   scroll-snap-stop: always;
   min-height: 100vh;
+  min-height: 100svh;
+  min-height: 100dvh;
   position: relative;
   width: 100%;
 }
@@ -102,6 +104,16 @@ section {
 #root {
   min-height: 100vh;
   background: var(--color-void);
+}
+
+@media (max-width: 640px) {
+
+  #root {
+    display: block;
+    width: 100%;
+    min-height: 100vh;
+    padding: 0;
+  }
 }
 
 button {

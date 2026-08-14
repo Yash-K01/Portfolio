@@ -1,0 +1,125 @@
+/* ===== Liquid Glass Ambient Layer ===== */
+.about {
+  position: relative;
+  isolation: isolate;
+}
+
+.about::before,
+.about::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  border-radius: 50%;
+  filter: blur(70px);
+  pointer-events: none;
+  opacity: 0.55;
+}
+
+.about::before {
+  width: 380px;
+  height: 380px;
+  top: -120px;
+  left: -80px;
+  background: radial-gradient(circle, rgba(255, 138, 61, 0.35), transparent 70%);
+  animation: driftA 16s ease-in-out infinite;
+}
+
+.about::after {
+  width: 320px;
+  height: 320px;
+  bottom: -140px;
+  right: -60px;
+  background: radial-gradient(circle, rgba(79, 168, 255, 0.3), transparent 70%);
+  animation: driftB 19s ease-in-out infinite;
+}
+
+@keyframes driftA {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(40px, 30px) scale(1.12); }
+}
+
+@keyframes driftB {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(-30px, -25px) scale(1.08); }
+}
+
+/* Liquid glass panel treatment — wins over base .glassPanel regardless of import order */
+.aboutStatsPanel {
+  position: relative !important;
+  overflow: hidden;
+  background:
+    linear-gradient(155deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.03) 45%, rgba(255, 255, 255, 0.06) 100%) !important;
+  -webkit-backdrop-filter: blur(26px) saturate(160%) !important;
+  backdrop-filter: blur(26px) saturate(160%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.14) !important;
+  box-shadow:
+    0 20px 50px -20px rgba(0, 0, 0, 0.55),
+    inset 0 1px 0 rgba(255, 255, 255, 0.22),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.03) !important;
+}
+
+.aboutStatsPanel::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg, rgba(255, 255, 255, 0.16) 0%, transparent 30%);
+  opacity: 0.7;
+  pointer-events: none;
+  mix-blend-mode: overlay;
+}
+
+.aboutGrid {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: clamp(32px, 6vw, 80px);
+  margin-top: 40px;
+  align-items: start;
+}
+
+.aboutCopy {
+  font-size: clamp(1.05rem, 1.6vw, 1.35rem);
+  line-height: 1.75;
+  color: var(--color-text);
+  font-weight: 400;
+}
+
+.aboutStatsPanel {
+  padding: 28px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+.aboutStat {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.aboutStatValue {
+  font-family: var(--font-display);
+  font-size: 2.4rem;
+  color: var(--color-ember-soft);
+  line-height: 1;
+}
+
+.aboutStatLabel {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-text-faint);
+}
+
+@media (max-width: 860px) {
+  .aboutGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .about::before,
+  .about::after {
+    animation: none;
+  }
+}
