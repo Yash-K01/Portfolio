@@ -6,6 +6,125 @@
   gap: 34px;
 }
 
+/* ===== Skills Logo Marquee ===== */
+.marqueeWrap {
+  position: relative;
+  isolation: isolate;
+  margin-top: 44px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.marqueeWrap::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  top: -120px;
+  left: 10%;
+  width: 380px;
+  height: 380px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 154, 77, 0.18), transparent 70%);
+  filter: blur(80px);
+  pointer-events: none;
+}
+
+.marqueeRow {
+  position: relative;
+  overflow: hidden;
+  padding: 4px 0;
+  -webkit-mask-image: linear-gradient(90deg, transparent, black 8%, black 92%, transparent);
+  mask-image: linear-gradient(90deg, transparent, black 8%, black 92%, transparent);
+}
+
+.marqueeTrack {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  width: max-content;
+  will-change: transform;
+}
+
+.marqueeRow:hover .marqueeTrack {
+  animation-play-state: paused;
+}
+
+.marqueeTrack.dirLeft {
+  animation: marqueeLeft 34s linear infinite;
+}
+
+.marqueeTrack.dirRight {
+  animation: marqueeRight 34s linear infinite;
+}
+
+.marqueeRow:nth-child(1) .marqueeTrack {
+  animation-duration: 30s;
+}
+
+.marqueeRow:nth-child(2) .marqueeTrack {
+  animation-duration: 38s;
+}
+
+.marqueeRow:nth-child(3) .marqueeTrack {
+  animation-duration: 26s;
+}
+
+@keyframes marqueeLeft {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+@keyframes marqueeRight {
+  from { transform: translateX(-50%); }
+  to { transform: translateX(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marqueeTrack.dirLeft,
+  .marqueeTrack.dirRight {
+    animation: none;
+  }
+}
+
+.skillLogoPill {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 18px 10px 12px;
+  border-radius: 999px;
+  background: linear-gradient(155deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.03) 100%);
+  -webkit-backdrop-filter: blur(18px) saturate(160%);
+  backdrop-filter: blur(18px) saturate(160%);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow:
+    0 10px 24px -14px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.18);
+  transition: transform 0.35s var(--ease-cinema), border-color 0.35s, box-shadow 0.35s;
+}
+
+.skillLogoPill:hover {
+  transform: translateY(-4px) scale(1.05);
+  border-color: rgba(255, 154, 77, 0.45);
+  box-shadow: 0 14px 30px -14px rgba(255, 122, 51, 0.45);
+}
+
+.skillLogoIcon {
+  width: 22px;
+  height: 22px;
+  object-fit: contain;
+  flex-shrink: 0;
+  filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.15));
+}
+
+.skillLogoLabel {
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--color-text);
+  white-space: nowrap;
+}
+
 .skillsCategory {
   display: flex;
   flex-direction: column;
@@ -61,10 +180,49 @@
 /* ===== Experience Styles ===== */
 .expTimeline {
   position: relative;
+  isolation: isolate;
   margin-top: 50px;
   display: flex;
   flex-direction: column;
   gap: 4px;
+}
+
+.expTimeline::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  top: -100px;
+  right: -80px;
+  width: 360px;
+  height: 360px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(79, 168, 255, 0.16), transparent 70%);
+  filter: blur(80px);
+  pointer-events: none;
+}
+
+.expCard {
+  position: relative !important;
+  overflow: hidden;
+  background:
+    linear-gradient(155deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.03) 45%, rgba(255, 255, 255, 0.06) 100%) !important;
+  -webkit-backdrop-filter: blur(26px) saturate(160%) !important;
+  backdrop-filter: blur(26px) saturate(160%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.14) !important;
+  box-shadow:
+    0 20px 50px -20px rgba(0, 0, 0, 0.55),
+    inset 0 1px 0 rgba(255, 255, 255, 0.22),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.03) !important;
+}
+
+.expCard::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg, rgba(255, 255, 255, 0.16) 0%, transparent 30%);
+  opacity: 0.7;
+  pointer-events: none;
+  mix-blend-mode: overlay;
 }
 
 .expTimeline::before {
@@ -178,5 +336,19 @@
   .skillsPill {
     font-size: 0.78rem;
     padding: 9px 16px;
+  }
+
+  .skillLogoPill {
+    padding: 8px 14px 8px 10px;
+    gap: 8px;
+  }
+
+  .skillLogoIcon {
+    width: 18px;
+    height: 18px;
+  }
+
+  .skillLogoLabel {
+    font-size: 0.74rem;
   }
 }

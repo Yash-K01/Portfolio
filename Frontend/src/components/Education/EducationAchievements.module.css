@@ -1,9 +1,51 @@
 /* ===== Education Styles ===== */
 .eduGrid {
+  position: relative;
+  isolation: isolate;
   margin-top: 44px;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 22px;
+}
+
+.eduGrid::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  top: -140px;
+  right: -60px;
+  width: 340px;
+  height: 340px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 154, 77, 0.22), transparent 70%);
+  filter: blur(75px);
+  pointer-events: none;
+}
+
+.eduCard,
+.achCard {
+  position: relative !important;
+  overflow: hidden;
+  background:
+    linear-gradient(155deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.03) 45%, rgba(255, 255, 255, 0.06) 100%) !important;
+  -webkit-backdrop-filter: blur(26px) saturate(160%) !important;
+  backdrop-filter: blur(26px) saturate(160%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.14) !important;
+  box-shadow:
+    0 20px 50px -20px rgba(0, 0, 0, 0.55),
+    inset 0 1px 0 rgba(255, 255, 255, 0.22),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.03) !important;
+}
+
+.eduCard::before,
+.achCard::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg, rgba(255, 255, 255, 0.16) 0%, transparent 30%);
+  opacity: 0.7;
+  pointer-events: none;
+  mix-blend-mode: overlay;
 }
 
 .eduCard {
@@ -16,7 +58,7 @@
 
 .eduCard:hover {
   transform: translateY(-6px);
-  border-color: rgba(255, 154, 77, 0.35);
+  border-color: rgba(255, 154, 77, 0.35) !important;
 }
 
 .degree {
@@ -66,10 +108,26 @@
 
 /* ===== Achievements Styles ===== */
 .achGrid {
+  position: relative;
+  isolation: isolate;
   margin-top: 44px;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 22px;
+}
+
+.achGrid::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  bottom: -160px;
+  left: -60px;
+  width: 340px;
+  height: 340px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(79, 168, 255, 0.2), transparent 70%);
+  filter: blur(75px);
+  pointer-events: none;
 }
 
 .achCard {
@@ -84,7 +142,7 @@
 
 .achCard:hover {
   transform: translateY(-6px);
-  border-color: rgba(255, 154, 77, 0.4);
+  border-color: rgba(255, 154, 77, 0.4) !important;
 }
 
 .badge {

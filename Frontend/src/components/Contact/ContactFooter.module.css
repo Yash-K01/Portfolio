@@ -1,9 +1,64 @@
 /* ===== Contact Styles ===== */
 .grid {
+  position: relative;
+  isolation: isolate;
   margin-top: 44px;
   display: grid;
   grid-template-columns: 0.85fr 1.15fr;
   gap: 28px;
+}
+
+.grid::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  top: -160px;
+  left: -10%;
+  width: 420px;
+  height: 420px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(79, 168, 255, 0.22), transparent 70%);
+  filter: blur(80px);
+  pointer-events: none;
+  animation: contactDrift 18s ease-in-out infinite;
+}
+
+@keyframes contactDrift {
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(30px, 20px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .grid::before {
+    animation: none;
+  }
+}
+
+/* Liquid glass panels */
+.infoCard,
+.formCard {
+  position: relative !important;
+  overflow: hidden;
+  background:
+    linear-gradient(155deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.03) 45%, rgba(255, 255, 255, 0.06) 100%) !important;
+  -webkit-backdrop-filter: blur(26px) saturate(160%) !important;
+  backdrop-filter: blur(26px) saturate(160%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.14) !important;
+  box-shadow:
+    0 20px 50px -20px rgba(0, 0, 0, 0.55),
+    inset 0 1px 0 rgba(255, 255, 255, 0.22),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.03) !important;
+}
+
+.infoCard::before,
+.formCard::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg, rgba(255, 255, 255, 0.16) 0%, transparent 30%);
+  opacity: 0.7;
+  pointer-events: none;
+  mix-blend-mode: overlay;
 }
 
 .infoCard {
@@ -214,6 +269,12 @@
   height: 220px;
   background: radial-gradient(ellipse at center, rgba(255, 138, 61, 0.16), transparent 70%);
   pointer-events: none;
+}
+
+.footer {
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+  background: linear-gradient(180deg, transparent, rgba(255, 255, 255, 0.02));
 }
 
 .title {
