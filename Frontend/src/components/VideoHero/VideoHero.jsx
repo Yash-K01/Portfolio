@@ -1,5 +1,4 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { createPortal } from 'react-dom';
 import { gsap } from 'gsap';
 import CinematicLayer from '../CinematicLayer/CinematicLayer';
 import styles from './VideoHero.module.css';
@@ -118,96 +117,6 @@ export default function VideoHero() {
     };
   }, []);
 
-  // The nav bar and the full-screen mobile menu are portaled straight to
-  // <body>. Without this, if any ancestor up the tree (a smooth-scroll
-  // wrapper, a GSAP-transformed section, etc.) has a CSS `transform`, it
-  // creates a new containing block for `position: fixed` descendants —
-  // so instead of staying pinned to the viewport, the nav scrolls away
-  // with that ancestor and "disappears" the moment you scroll past the
-  // hero. Rendering it via a portal on <body> sidesteps that entirely,
-  // since <body> itself is never transformed.
-  const navMarkup = (
-    <nav ref={navRef} className={styles.nav}>
-      <div className={styles.navLeft}>
-        <a href="/" className={styles.logoLink}>
-          <div className={styles.logo}>YK</div>
-        </a>
-        <a href="/" className={styles.nameLink}>
-          Yash Khartode
-        </a>
-      </div>
-
-      <div className={styles.navLinksWrapper}>
-        <ul className={styles.navLinks}>
-          {NAV_LINKS.map((link) => (
-            <li key={link}>
-              <a href={`#${link.toLowerCase()}`} className={styles.navLink}>
-                {link}
-              </a>
-            </li>
-          ))}
-        </ul>
-      </div>
-
-      <button
-        type="button"
-        className={`${styles.hamburger} ${isMenuOpen ? styles.active : ''}`}
-        onClick={toggleMenu}
-        aria-label="Toggle navigation menu"
-        aria-expanded={isMenuOpen}
-      >
-        <span />
-        <span />
-        <span />
-      </button>
-    </nav>
-  );
-
-  const mobileNavMarkup = (
-    <div className={`${styles.mobileNav} ${isMenuOpen ? styles.open : ''}`}>
-      <div className={styles.mobileNavGlow} />
-
-      {/* Close Button */}
-      <button
-        type="button"
-        className={styles.closeButton}
-        onClick={closeMenu}
-        aria-label="Close menu"
-      >
-        <svg width="28" height="28" viewBox="0 0 32 32" fill="none">
-          <path
-            d="M8 8L24 24M24 8L8 24"
-            stroke="currentColor"
-            strokeWidth="2.5"
-            strokeLinecap="round"
-          />
-        </svg>
-      </button>
-
-      <div className={styles.mobileNavHeader}>
-        <div className={styles.mobileLogo}>YK</div>
-        <span className={styles.mobileBrandName}>Yash Khartode</span>
-      </div>
-
-      <div className={styles.mobileNavLinks}>
-        {NAV_LINKS.map((link, i) => (
-          <a
-            key={link}
-            href={`#${link.toLowerCase()}`}
-            className={styles.mobileNavLink}
-            style={{ '--i': i }}
-            onClick={closeMenu}
-          >
-            <span className={styles.mobileNavLinkIndex}>{String(i + 1).padStart(2, '0')}</span>
-            {link}
-          </a>
-        ))}
-      </div>
-    </div>
-  );
-
-  const canPortal = typeof document !== 'undefined';
-
   return (
     <section id="hero" ref={heroRef} className={styles.hero}>
       <video
@@ -234,9 +143,7 @@ export default function VideoHero() {
       />
 
       {/* Mute/Unmute Button */}
-      {canPortal
-        ? createPortal(<MuteButton isMuted={isMuted} toggleMute={toggleMute} />, document.body)
-        : <MuteButton isMuted={isMuted} toggleMute={toggleMute} />}
+      <MuteButton isMuted={isMuted} toggleMute={toggleMute} />
 
       {/* Rest of your UI */}
       <div className={styles.vignette} />
@@ -244,8 +151,69 @@ export default function VideoHero() {
       <div className={styles.gradientTop} />
       <CinematicLayer />
 
-      {canPortal ? createPortal(navMarkup, document.body) : navMarkup}
-      {canPortal ? createPortal(mobileNavMarkup, document.body) : mobileNavMarkup}
+      <nav ref={navRef} className={styles.nav}>
+         <div className={styles.navLeft}>
+            <a href="/" className={styles.logoLink}>
+              <div className={styles.logo}>YK</div>
+            </a>
+            <a href="/" className={styles.nameLink}>
+              Yash Khartode
+            </a>
+          </div>
+
+        <div className={styles.navLinksWrapper}>
+          <ul className={styles.navLinks}>
+            {NAV_LINKS.map((link) => (
+              <li key={link}>
+                <a href={`#${link.toLowerCase()}`} className={styles.navLink}>
+                  {link}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <button 
+          className={`${styles.hamburger} ${isMenuOpen ? styles.active : ''}`}
+          onClick={toggleMenu}
+          aria-label="Toggle navigation menu"
+          aria-expanded={isMenuOpen}
+        >
+          <span />
+          <span />
+          <span />
+        </button>
+      </nav>
+
+      {/* Mobile Navigation Menu */}
+      <div className={`${styles.mobileNav} ${isMenuOpen ? styles.open : ''}`}>
+        {/* Close Button */}
+        <button 
+          className={styles.closeButton}
+          onClick={closeMenu}
+          aria-label="Close menu"
+        >
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+            <path 
+              d="M8 8L24 24M24 8L8 24" 
+              stroke="currentColor" 
+              strokeWidth="2.5" 
+              strokeLinecap="round"
+            />
+          </svg>
+        </button>
+
+        {NAV_LINKS.map((link) => (
+          <a 
+            key={link}
+            href={`#${link.toLowerCase()}`} 
+            className={styles.mobileNavLink}
+            onClick={closeMenu}
+          >
+            {link}
+          </a>
+        ))}
+      </div>
 
       <div className={styles.content}>
         <div ref={taglineRef} className={styles.tagline}>
