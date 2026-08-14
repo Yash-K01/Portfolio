@@ -2,27 +2,12 @@
   position: relative;
   top: 0;
   width: 100%;
-  height: 100dvh;
-  min-height: 100dvh;
+  height: 100vh;
+  min-height: 640px;
   overflow: hidden;
   background: var(--color-void);
   opacity: 0;
 }
-
-@media (max-width: 640px) {
-  .hero {
-    width: calc(100vw - 24px) !important;
-    max-width: 430px !important;
-    height: calc(100dvh - 18px) !important;
-    min-height: min(620px, 100dvh);
-    margin: 10px auto 0;
-    border-radius: 28px;
-    border: 1px solid rgba(255, 255, 255, 0.38);
-    box-shadow: 0 18px 36px rgba(0, 0, 0, 0.18);
-    overflow: hidden;
-  }
-}
-
 
 /* ---------- video layers ---------- */
 
@@ -81,28 +66,12 @@
 
 /* ---------- navbar ---------- */
 
-/*
- * Centering note: this bar is portaled to <body> (see VideoHero.jsx) and
- * animated by GSAP, which writes its own inline `transform` for the intro
- * slide-in. Centering with `left: 50%; transform: translateX(-50%)` would
- * fight that inline transform and knock the bar off-center once GSAP
- * takes over — so it's centered with left/right + auto margin instead,
- * no `transform` involved in the positioning at all.
- *
- * The portal is also the fix for the "nav disappears on scroll" bug: if
- * any ancestor between <body> and the nav has a CSS transform (a smooth-
- * scroll wrapper, a GSAP-transformed section, etc.), that ancestor becomes
- * the containing block for `position: fixed` children, so the nav scrolls
- * away with it instead of staying pinned to the viewport. Rendering it
- * straight onto <body> via createPortal removes that ancestor entirely.
- */
 .nav {
   position: fixed;
-  top: max(1.5rem, env(safe-area-inset-top));
-  left: 0;
-  right: 0;
-  margin-inline: auto;
-  z-index: 1000;
+  top: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -110,11 +79,8 @@
   width: min(1180px, 92%);
   padding: 0.6rem 0.75rem 0.6rem 0.6rem;
   border-radius: 999px;
-  background: linear-gradient(155deg, rgba(255, 255, 255, 0.1) 0%, rgba(20, 17, 14, 0.55) 60%, rgba(20, 17, 14, 0.5) 100%);
-  border: 1px solid rgba(232, 226, 226, 0.842);
-  box-shadow:
-    0 16px 40px -18px rgba(0, 0, 0, 0.7),
-    inset 0 1px 0 rgba(255, 255, 255, 0.18);
+  background: rgba(20, 17, 14, 0.45);
+  border: 2px solid white;
   backdrop-filter: blur(18px) saturate(1.4);
   -webkit-backdrop-filter: blur(18px) saturate(1.4);
 }
@@ -124,7 +90,6 @@
   align-items: center;
   gap: 0.75rem;
   flex-shrink: 0;
-  min-width: 0;
 }
 
 .logo {
@@ -161,9 +126,6 @@
   font-size: 0.95rem;
   color: var(--color-mist);
   white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  max-width: 40vw;
 }
 
 .navLinksWrapper {
@@ -177,7 +139,7 @@
   background: rgba(64, 58, 58, 0.066);
   backdrop-filter: blur(20px) saturate(1.8);
   -webkit-backdrop-filter: blur(20px) saturate(1.8);
-  border: 1px solid rgba(228, 228, 221, 0.799);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
 }
 
@@ -224,55 +186,22 @@
   transform: scaleX(1);
 }
 
-/* ---------- hamburger menu button ---------- */
 
-.hamburger {
-  display: none;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 4px;
-  width: 2.5rem;
-  height: 2.5rem;
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 50%;
-  cursor: pointer;
-  padding: 8px;
-  flex-shrink: 0;
-  transition: background 0.3s var(--ease-cinematic), border-color 0.3s var(--ease-cinematic);
+@media (max-width: 1024px) {
+  .navLinksWrapper {
+    display: none;
+  }
 }
 
-.hamburger:hover {
-  background: rgba(255, 255, 255, 0.12);
-  border-color: rgba(255, 255, 255, 0.22);
-}
-
-.hamburger span {
-  display: block;
-  width: 18px;
-  height: 2px;
-  border-radius: 2px;
-  background: var(--color-mist);
-  transition: all 0.3s var(--ease-cinematic);
-  transform-origin: center;
-}
-
-.hamburger.active {
-  background: rgba(62, 242, 163, 0.12);
-  border-color: rgba(62, 242, 163, 0.35);
-}
-
-.hamburger.active span:nth-child(1) {
-  transform: translateY(6px) rotate(45deg);
-}
-
-.hamburger.active span:nth-child(2) {
-  opacity: 0;
-}
-
-.hamburger.active span:nth-child(3) {
-  transform: translateY(-6px) rotate(-45deg);
+/* Mobile responsive for navLeft */
+@media (max-width: 640px) {
+  .navLeft {
+    gap: 0.5rem;
+  }
+  
+  .nameLink {
+    font-size: 0.85rem;
+  }
 }
 
 /* ---------- overlay content ---------- */
@@ -306,7 +235,6 @@
   font-size: 0.72rem;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  text-align: center;
 }
 
 .dot {
@@ -315,7 +243,6 @@
   border-radius: 50%;
   background: var(--color-mint);
   box-shadow: 0 0 10px rgba(62, 242, 163, 0.9);
-  flex-shrink: 0;
 }
 
 .name {
@@ -369,16 +296,39 @@
   background: rgba(245, 243, 239, 0.14);
 }
 
-/* ---------- mute button ---------- */
+/* ---------- responsive ---------- */
+
+@media (max-width: 860px) {
+  .navLinks {
+    display: none;
+  }
+  .nav {
+    justify-content: space-between;
+    gap: 1rem;
+  }
+}
+
+@media (max-width: 520px) {
+  .content {
+    bottom: 7%;
+  }
+  .name {
+    font-size: clamp(2.4rem, 11vw, 3.2rem);
+  }
+  .exploreBtn,
+  .contactBtn {
+    padding: 0.75rem 1.5rem;
+    font-size: 0.85rem;
+  }
+}
 
 .muteButton {
   position: fixed;
-  bottom: max(2rem, env(safe-area-inset-bottom));
-  right: max(2rem, env(safe-area-inset-right));
-  z-index: 900;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 50;
   background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 50%;
   width: 44px;
@@ -406,303 +356,161 @@
   outline-offset: 2px;
 }
 
-/* ---------- mobile nav menu ---------- */
+/* ---------- hamburger menu button ---------- */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 4px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  z-index: 20;
+}
 
+.hamburger span {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: var(--color-mist);
+  transition: all 0.3s var(--ease-cinematic);
+  transform-origin: center;
+}
+
+.hamburger.active span:nth-child(1) {
+  transform: rotate(45deg) translate(4px, 4px);
+}
+
+.hamburger.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger.active span:nth-child(3) {
+  transform: rotate(-45deg) translate(4px, -4px);
+}
+
+/* ---------- mobile nav menu ---------- */
 .mobileNav {
   display: none;
   position: fixed;
-  inset: 0;
-  z-index: 950;
-  overflow: hidden;
-  background: linear-gradient(165deg, rgba(22, 19, 16, 0.97) 0%, rgba(10, 9, 8, 0.99) 60%, rgba(8, 7, 6, 1) 100%);
-  backdrop-filter: blur(28px) saturate(1.3);
-  -webkit-backdrop-filter: blur(28px) saturate(1.3);
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(10, 9, 8, 0.95);
+  backdrop-filter: blur(20px);
+  z-index: 15;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 1rem;
-  padding: max(2rem, env(safe-area-inset-top)) 1.5rem max(2rem, env(safe-area-inset-bottom));
+  padding: 2rem;
   animation: fadeIn 0.4s var(--ease-cinematic);
+  position: relative;
 }
 
 .mobileNav.open {
   display: flex;
 }
 
-.mobileNavGlow {
-  position: absolute;
-  z-index: -1;
-  top: -20%;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 120vw;
-  height: 60vh;
-  max-width: 700px;
-  background: radial-gradient(ellipse at center, rgba(62, 242, 163, 0.14), transparent 70%);
-  filter: blur(60px);
-  pointer-events: none;
-}
-
-.mobileNavHeader {
-  display: flex;
-  align-items: center;
-  gap: 0.7rem;
-  margin-bottom: 1.5rem;
-}
-
-.mobileLogo {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 2.3rem;
-  height: 2.3rem;
-  border-radius: 50%;
-  background: var(--color-mist);
-  color: var(--color-void);
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: 0.8rem;
-}
-
-.mobileBrandName {
-  font-family: var(--font-body);
-  font-weight: 500;
-  font-size: 0.95rem;
-  color: var(--color-mist-subtle);
-}
-
-.mobileNavLinks {
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-  gap: 0.75rem;
-  width: min(360px, 100%);
-}
-
 .mobileNavLink {
-  display: flex;
-  align-items: center;
-  gap: 0.9rem;
-  padding: 0.9rem 1.2rem;
-  border-radius: 18px;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
   font-family: var(--font-display);
-  font-size: 1.35rem;
+  font-size: 1.8rem;
   color: var(--color-mist);
   text-decoration: none;
-  transition: background 0.3s var(--ease-cinematic), border-color 0.3s var(--ease-cinematic), transform 0.3s var(--ease-cinematic);
-  opacity: 0;
-  transform: translateY(14px);
+  transition: color 0.3s var(--ease-cinematic);
+  position: relative;
 }
 
-.mobileNav.open .mobileNavLink {
-  animation: navLinkIn 0.5s var(--ease-cinematic) forwards;
-  animation-delay: calc(var(--i, 0) * 55ms + 80ms);
-}
-
-.mobileNavLink:hover,
-.mobileNavLink:active {
-  background: rgba(62, 242, 163, 0.1);
-  border-color: rgba(62, 242, 163, 0.35);
-  transform: translateY(-2px);
-}
-
-.mobileNavLinkIndex {
-  font-family: var(--font-mono);
-  font-size: 0.7rem;
-  letter-spacing: 0.08em;
+.mobileNavLink:hover {
   color: var(--color-mint);
-  opacity: 0.8;
 }
 
-@keyframes navLinkIn {
-  from {
-    opacity: 0;
-    transform: translateY(14px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+.mobileNavLink::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  width: 100%;
+  height: 2px;
+  background: var(--color-mint);
+  transform: scaleX(0);
+  transition: transform 0.3s var(--ease-cinematic);
+}
+
+.mobileNavLink:hover::after {
+  transform: scaleX(1);
 }
 
 @keyframes fadeIn {
   from {
     opacity: 0;
+    transform: scale(0.95);
   }
   to {
     opacity: 1;
+    transform: scale(1);
   }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .mobileNav {
-    animation: none;
+/* ---------- responsive breakpoints ---------- */
+
+/* Tablet */
+@media (max-width: 1024px) {
+  .navLinks {
+    display: none;
   }
+  
+  .hamburger {
+    display: flex;
+  }
+  
+  .nav {
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.6rem 0.75rem 0.6rem 0.6rem;
+    width: min(1180px, 95%);
+  }
+}
+
+/* Mobile */
+@media (max-width: 640px) {
+  .nav {
+    top: 1rem;
+    padding: 0.5rem 0.65rem 0.5rem 0.5rem;
+    width: 96%;
+  }
+  
+  .logo {
+    width: 2.2rem;
+    height: 2.2rem;
+    font-size: 0.75rem;
+  }
+  
+  .nav div:not(.logo) {
+    font-size: 0.85rem;
+  }
+  
   .mobileNavLink {
-    opacity: 1;
-    transform: none;
-    animation: none;
+    font-size: 1.4rem;
   }
 }
 
 /* Close button for mobile menu */
 .closeButton {
   position: absolute;
-  top: max(1.5rem, env(safe-area-inset-top));
-  right: max(1.5rem, env(safe-area-inset-right));
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 2.6rem;
-  height: 2.6rem;
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  border-radius: 50%;
+  top: 1.5rem;
+  right: 1.5rem;
+  background: transparent;
+  border: none;
   color: var(--color-mist);
   cursor: pointer;
   padding: 8px;
-  transition: transform 0.3s var(--ease-cinematic), background 0.3s var(--ease-cinematic), color 0.3s var(--ease-cinematic);
+  transition: transform 0.3s var(--ease-cinematic);
   z-index: 25;
 }
 
 .closeButton:hover {
   transform: rotate(90deg);
-  background: rgba(62, 242, 163, 0.12);
   color: var(--color-mint);
-}
-
-/* ==================================================================
-   Responsive breakpoints
-   ================================================================== */
-
-/* Tablet: switch to hamburger nav */
-@media (max-width: 1024px) {
-  .navLinksWrapper {
-    display: none;
-  }
-
-  .hamburger {
-    display: flex;
-  }
-
-  .nav {
-    padding: 0.6rem 0.75rem 0.6rem 0.6rem;
-    width: min(1180px, 95%);
-  }
-}
-
-/* Small tablet / large phone */
-@media (max-width: 640px) {
-  .nav {
-    top: max(1rem, env(safe-area-inset-top));
-    padding: 0.5rem 0.6rem 0.5rem 0.5rem;
-    width: calc(100% - 1.5rem);
-    max-width: 400px;
-    gap: 0.5rem;
-  }
-
-  .navLeft {
-    gap: 0.5rem;
-  }
-
-  .logo {
-    width: 2.2rem;
-    height: 2.2rem;
-    font-size: 0.75rem;
-  }
-
-  .nameLink {
-    font-size: 0.85rem;
-    max-width: 32vw;
-  }
-
-  .hamburger {
-    width: 2.2rem;
-    height: 2.2rem;
-  }
-
-  .content {
-    bottom: 7%;
-    width: min(86%, 350px);
-  }
-
-  .name {
-    font-size: clamp(2.4rem, 11vw, 3.2rem);
-    margin-bottom: 1.4rem;
-  }
-
-  .tagline {
-    font-size: 0.64rem;
-    padding: 0.45rem 0.85rem;
-  }
-
-  .exploreBtn,
-  .contactBtn {
-    padding: 0.75rem 1.5rem;
-    font-size: 0.85rem;
-  }
-
-  .muteButton {
-    bottom: max(1.25rem, env(safe-area-inset-bottom));
-    right: max(1.25rem, env(safe-area-inset-right));
-    width: 40px;
-    height: 40px;
-  }
-
-  .mobileNavLink {
-    font-size: 1.15rem;
-    padding: 0.8rem 1.1rem;
-  }
-
-  .mobileLogo {
-    width: 2.1rem;
-    height: 2.1rem;
-  }
-
-  .mobileBrandName {
-    font-size: 0.85rem;
-  }
-}
-
-/* Very small phones / short viewports */
-@media (max-width: 380px) {
-  .name {
-    font-size: clamp(2.1rem, 12vw, 2.6rem);
-  }
-
-  .ctaRow {
-    width: 100%;
-  }
-
-  .exploreBtn,
-  .contactBtn {
-    flex: 1;
-    text-align: center;
-    padding: 0.75rem 1rem;
-  }
-}
-
-@media (max-height: 640px) and (max-width: 640px) {
-  .content {
-    bottom: 5%;
-  }
-
-  .name {
-    margin-bottom: 1rem;
-  }
-
-  .mobileNavLinks {
-    gap: 0.5rem;
-  }
-
-  .mobileNavLink {
-    padding: 0.65rem 1.1rem;
-    font-size: 1.05rem;
-  }
-
-  .mobileNavHeader {
-    margin-bottom: 0.75rem;
-  }
 }
